@@ -1,0 +1,11 @@
+1
+##start
+start 23 3
+room 44 99
+room2 44 777
+##end
+end 9 5
+start-room
+room-end
+start-room2
+room2-end

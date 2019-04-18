@@ -1,0 +1,31 @@
+5
+##start
+start 23 3
+two 55 13
+three 10 22
+for 54 54 
+five 87 87 
+six 67 67 
+seven 67 100
+height 50 67
+nine 50 87
+##end
+end 49 30
+start-two
+start-three
+start-for
+two-end
+three-five
+five-six
+for-end
+six-end
+seven-five
+seven-end
+six-height
+height-nine
+#
+#   [end] -[5]
+#   /   \    \
+#  [1]  [2] [3]
+#   \   /    |
+#    [0]  - /

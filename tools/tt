@@ -1,0 +1,6 @@
+rm -rf map_tmp
+./resources/generator --big-superposition >> map_tmp
+./lem-in < map_tmp
+echo "\n"
+head map_tmp
+rm -rf map_tmp
