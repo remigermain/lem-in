@@ -1,5 +1,0 @@
-rm -rf map_tmp
-./resources/generator --big >> map_tmp
-time ./lem-in < map_tmp -p
-echo "\n"
-head map_tmp
