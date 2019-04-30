@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/11/02 11:44:53 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/18 20:12:46 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 12:31:16 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,7 +25,7 @@ char	**ft_createtab(int len, char c)
 	{
 		if (!(tab[i] = (char*)ft_memalloc(len + 1)))
 		{
-			ft_memdeltab(tab);
+			ft_memdeltab_char(&tab);
 			return (NULL);
 		}
 		ft_memset(tab[i++], c, len);

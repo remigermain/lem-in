@@ -6,14 +6,14 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/18 12:05:08 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/29 01:00:33 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 14:44:46 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int				to_malloc(int nb)
+static int		to_malloc(int nb)
 {
 	if (!(nb % 8))
 		return (nb / 8);
@@ -29,7 +29,7 @@ static t_bool	create_matrix(t_data *data)
 	i = 0;
 	len = to_malloc(data->room_nb + 2);
 	if (!(data->matrix.tab = (char**)ft_memalloc(sizeof(char*) *
-					(data->room_nb + 2))))
+					(data->room_nb + 3))))
 		return (FALSE);
 	while (i < (data->room_nb + 2))
 	{
@@ -37,6 +37,7 @@ static t_bool	create_matrix(t_data *data)
 			return (FALSE);
 		i++;
 	}
+	data->matrix.tab[i] = NULL;
 	lemin_info(data, "Create matrix");
 	return (TRUE);
 }

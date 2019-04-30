@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/04 16:38:13 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/23 19:32:40 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 10:59:20 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,13 +70,14 @@ void			pf_string(t_pf *lst, t_uchar *str, wchar_t *wstr, int index)
 		str = comv_pstr(lst, str, max);
 	else if (index == 2)
 		str = comv_wstr(lst, wstr, max);
-	put_buff(lst, str, max, 1);
+	put_buff(lst, str, max, ((LENGHT >= 10 && LENGHT <= 20) ||
+				CONV == 'S') ? 1 : 0);
 	put_prefix(lst, max, -FIELD, 0);
 }
 
 void			conv_string(t_pf *lst)
 {
-	t_uchar	*ustr;
+	char	*str;
 	wchar_t	*wstr;
 
 	if ((LENGHT >= 10 && LENGHT <= 20) || CONV == 'S')
@@ -90,15 +91,13 @@ void			conv_string(t_pf *lst)
 	else
 	{
 		if (CONV == 'm')
-			ustr = ft_strudup(strerror(errno));
+			str = strerror(errno);
 		else
 		{
-			ustr = (t_uchar*)va_arg(lst->va_copy, char*);
-			if (ustr == NULL)
-				ustr = ft_strudup("(null)");
-			else
-				ustr = ft_ustrdup(ustr);
+			str = va_arg(lst->va_copy, char*);
+			if (str == NULL)
+				str = "(null)";
 		}
-		pf_string(lst, ustr, NULL, (CONV == 'r' ? 0 : 1));
+		pf_string(lst, (t_uchar*)str, NULL, (CONV == 'r' ? 0 : 1));
 	}
 }

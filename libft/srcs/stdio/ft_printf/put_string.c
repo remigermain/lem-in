@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/04 16:39:10 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/23 19:33:54 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 10:55:04 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@ void	convert_buff(t_pf *lst, void *tmp, size_t len)
 	if (len > 0)
 		ft_memcpy(new + lst->count + lst->buff_count, tmp, len);
 	if (lst->str != NULL)
-		free(lst->str);
+		ft_memdel((void**)&(lst->str));
 	lst->str = new;
 	lst->count += lst->buff_count + len;
 	lst->buff_count = 0;
@@ -45,7 +45,7 @@ void	put_buff(t_pf *lst, void *tmp, size_t len, size_t index)
 		lst->buff_count += len;
 	}
 	if (index == 1)
-		free(tmp);
+		ft_memdel((void**)&tmp);
 }
 
 void	put_itoa(t_pf *lst, t_ulong n)

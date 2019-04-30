@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/05 10:55:45 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/03/11 10:48:37 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 12:32:33 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -60,7 +60,7 @@ char			**ft_strsplit(const char *str, char c)
 		len = ft_passchar(str, c, &ib);
 		if (!(tab[i++] = ft_strsub(str, ib, len)))
 		{
-			ft_memdeltab(tab);
+			ft_memdeltab_char(&tab);
 			return (NULL);
 		}
 		ib += len;

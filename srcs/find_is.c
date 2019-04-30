@@ -6,62 +6,61 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/18 15:41:56 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/18 19:31:13 by loiberti    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/25 11:08:47 by loiberti    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static char	is_room_word(char *line, size_t *i)
+static int	is_xy(t_data *data, char *line, int *i, char c)
 {
-	if (line[(*i)] != ' ' && line[(*i)] != '-' && line[(*i)] != '\0')
-	{
-		while (line[(*i)] != ' ' && line[(*i)] != '-' && line[(*i)] != '\0')
-			(*i)++;
-		return (1);
-	}
-	return (0);
-}
+	int		word;
+	char	check;
 
-static void	is_room_space(char *line, size_t *i, size_t *len, char index)
-{
-	if ((line[(*i)] == ' ' || line[(*i)] == '\t') &&
-			line[(*i)] != '\0' && ((*i)++))
+	word = 0;
+	if (line[*i] == '-')
+		(*i)++;
+	check = *i;
+	while (line[*i] && line[*i] != ' ')
 	{
-		if (index == 1)
-			(*len)++;
-		while ((line[(*i)] == ' ' || line[(*i)] == '\t') &&
-				line[(*i)] != '\0')
-			(*i)++;
+		if (!ft_isdigit(line[*i]))
+			display_error(data, 1);
+		(*i)++;
 	}
+	if (check != *i && line[*i] == c)
+	{
+		(*i)++;
+		word++;
+	}
+	return (word);
 }
 
 t_bool		is_room(t_data *data, char *line)
 {
-	size_t	i;
-	size_t	len;
+	int		i;
+	char	check;
+	int		word;
 
 	i = 0;
-	len = 0;
-	if (data->b.pipe == 1)
+	check = 0;
+	word = 0;
+	if (data->b.pipe == 1 || line[i] == 'L')
 		return (FALSE);
-	is_room_space(line, &i, &len, 0);
-	if (line[i] == 'L')
-		return (FALSE);
-	is_room_word(line, &i);
-	is_room_space(line, &i, &len, 1);
-	if (ft_atol(line + i) == -1)
-		return (FALSE);
-	is_room_word(line, &i);
-	is_room_space(line, &i, &len, 1);
-	if (ft_atol(line + i) == -1)
-		return (FALSE);
-	is_room_word(line, &i);
-	is_room_space(line, &i, &len, 0);
-	if (line[i] == '\0' && len == 2)
-		return (TRUE);
-	return (FALSE);
+	while (line[i] && line[i] != ' ')
+	{
+		if (line[i] == '-')
+			return (FALSE);
+		i++;
+	}
+	if (i && line[i] == ' ')
+	{
+		i++;
+		word++;
+	}
+	word += is_xy(data, line, &i, ' ');
+	word += is_xy(data, line, &i, '\0');
+	return (word == 3 ? TRUE : FALSE);
 }
 
 t_bool		is_command(t_data *data, char *line)

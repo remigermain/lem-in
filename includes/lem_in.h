@@ -6,7 +6,7 @@
 /*   By: loiberti <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/26 19:20:21 by loiberti     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/18 20:14:26 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 19:37:11 by loiberti    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,10 +14,14 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 # include "../libft/includes/libft.h"
-# define TRUE	1
-# define FALSE	0
 # define ROOM_START 0
 # define ROOM_END 1
+
+typedef struct	s_line
+{
+	char			*line;
+	struct s_line	*next;
+}				t_line;
 
 typedef struct	s_algostar
 {
@@ -29,6 +33,7 @@ typedef struct	s_algostar
 	int	*clst;
 	int	c_startlen;
 	int	c_endlen;
+	int	alloc;
 }				t_algostar;
 
 typedef struct	s_algo
@@ -61,9 +66,9 @@ typedef	struct	s_info
 {
 	char	flags;
 	int		fd;
-	int		line_nb;
+	int		line_indice;
 	int		time;
-	int		line;
+	int		line_print;
 }				t_info;
 
 typedef struct	s_pipe
@@ -75,7 +80,6 @@ typedef struct	s_pipe
 typedef struct	s_matrix
 {
 	char	**tab;
-	char	*visited;
 	char	oriented;
 	int		pipe1;
 	int		pipe2;
@@ -107,6 +111,7 @@ typedef struct	s_data
 	int			pipe_nb;
 	int			line;
 	t_booleen	b;
+	t_line		*file;
 	t_info		info;
 	t_room		start;
 	t_room		end;
@@ -146,9 +151,9 @@ t_bool			is_command(t_data *data, char *line);
 /*
 **	PUT_IN STRUCTS
 */
-void			parse_line(t_data *data, char **line);
+int				parse_line(t_data *data, char **line);
 void			put_command(t_data *data, char **line);
-void			put_room(t_data *data, char *line);
+void			put_room(t_data *data, char **line);
 void			put_line(t_data *data, char **line);
 void			put_pipe(t_data *data, char **line);
 t_bool			find_nopipe(t_data *data, char **line, int j);
@@ -164,11 +169,12 @@ void			lemin_free(t_data *data);
 char			*find_name(t_data *data, int nb);
 int				tabintlen(int *tab);
 int				ft_atol(char *line);
-int				to_malloc(int nb);
 void			set_or_clear_bit(char *bit, int bit_nb, int mode);
 t_bool			test_bit(char *bit, int bit_nb);
 void			set_bit(char *bit, int bit_nb);
 void			clear_bit(char *bit, int bit_nb);
 void			putint(t_data *data, int *tab, int mod);
 void			putdbint(t_data *data, int **tab, int limit, int mod);
+void			print_line(t_line *line);
+void			realloc_olst(t_data *data, t_algostar *st);
 #endif

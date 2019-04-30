@@ -6,37 +6,44 @@
 /*   By: loiberti <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/14 14:36:08 by loiberti     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/18 19:52:54 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 13:18:41 by loiberti    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_bool	create_visited(t_data *data)
-{
-	if (!(data->matrix.visited = (char*)ft_memalloc(
-					to_malloc(data->room_nb + 2))))
-		return (FALSE);
-	lemin_info(data, "Create visited");
-	data->matrix.end_len = 0;
-	return (TRUE);
-}
-
 int		ft_atol(char *line)
 {
 	size_t	i;
+	size_t	n;
 	long	nb;
 
 	i = 0;
 	nb = 0;
+	n = 0;
 	while (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13))
+		i++;
+	if (line[i] == '-' && (n = 1))
 		i++;
 	while (line[i] >= '0' && line[i] <= '9' && nb <= 2147483648)
 		nb = ((nb * 10) + (line[i++] - '0'));
-	if (nb > 2147483647)
-		return (-1);
-	return (nb);
+	if (n)
+		nb = -nb;
+	if (nb > INT_MAX || nb < INT_MIN)
+		return (FALSE);
+	return (TRUE);
+}
+
+void	realloc_olst(t_data *data, t_algostar *st)
+{
+	int	*new;
+
+	if (!(new = (int*)ft_memalloc(sizeof(int) * (st->alloc + 1))))
+		display_error(data, 0);
+	ft_memcpy(new, st->olst, sizeof(int) * st->alloc++);
+	ft_memdel((void**)&st->olst);
+	st->olst = new;
 }
 
 char	*find_name(t_data *data, int nb)
@@ -61,4 +68,15 @@ int		tabintlen(int *tab)
 		return (i);
 	}
 	return (0);
+}
+
+void	display_error(t_data *data, char index)
+{
+	lemin_info(data, "Error");
+	lemin_free(data);
+	if (index == 0)
+		ft_printf("%1.@", "error", "lem_in");
+	else
+		ft_dprintf(2, "ERROR\n");
+	exit(0);
 }

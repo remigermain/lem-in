@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/07 18:10:38 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/01 10:58:16 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 12:27:30 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,5 +23,4 @@ size_t			len_wuchart(unsigned char *str);
 int				nlen_wchar(wchar_t *str, size_t len);
 void			convert_wchar(unsigned char **new, wchar_t wc, size_t *i);
 char			**ft_createtab(int nb, char c);
-void			ft_freetabi(int **tab, size_t len);
 #endif

@@ -6,7 +6,7 @@
 #    By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/01 15:39:03 by rgermain     #+#   ##    ##    #+#        #
-#    Updated: 2019/03/23 20:43:10 by rgermain    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/19 12:27:22 by rgermain    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -14,7 +14,7 @@
 NAME = libft.a
 TYPE = " de la library"
 
-CFLAGS = -Wall -Werror -Wextra -o3
+CFLAGS = -Wall -Werror -Wextra -o3 -g
 
 INCLUDE = -Iincludes
 
@@ -44,7 +44,7 @@ CHEADER = $(addprefix $(DHEADER),$(HEADER))
 CSRC_divers = $(addprefix $(D_DIVERS),$(SRC_divers))
 D_DIVERS = divers/
 SRC_divers = 		ft_countwchar.c ft_match.c ft_sort_integer_table.c ft_swap.c get_next_line.c \
-					ft_createtab.c ft_freetabi.c
+					ft_createtab.c
 
 
 CSRC_ISMETHODE = $(addprefix $(D_IS_METHODE),$(SRC_ISMETHODE))  

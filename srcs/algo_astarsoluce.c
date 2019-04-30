@@ -6,14 +6,14 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/01 17:51:03 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/18 19:30:16 by loiberti    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 15:15:42 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void		remove_node2(t_data *data, int room)
+static void	remove_node2(t_data *data, int room)
 {
 	int i;
 
@@ -29,7 +29,7 @@ void		remove_node2(t_data *data, int room)
 	}
 }
 
-void		remove_node(t_data *data)
+static void	remove_node(t_data *data)
 {
 	int i;
 	int j;
@@ -45,14 +45,34 @@ void		remove_node(t_data *data)
 	data->matrix.end_len = 0;
 }
 
-static void	alloc_path(t_data *data, t_soluce *st, int **file, int **nb_file)
+static int	len_path(t_algo *al)
+{
+	t_soluce st;
+
+	ft_bzero(&st, sizeof(t_soluce));
+	while (st.pos < al->l && al->nb_file[st.pos] != -1)
+		st.pos++;
+	st.l++;
+	while (st.pos > 0)
+	{
+		st.i = 0;
+		st.j = 0;
+		while ((st.j + al->nb_file[st.i]) < st.pos)
+			st.j += al->nb_file[st.i++];
+		st.pos = st.i;
+		st.l++;
+	}
+	return (st.l);
+}
+
+static void	alloc_path(t_data *data, t_soluce *st, t_algo *al)
 {
 	ft_bzero(st, sizeof(t_soluce));
 	if (!(st->path = (int*)ft_memalloc(sizeof(int) *
-												(data->matrix.end_len + 1))))
+					(len_path(al) + 1))))
 	{
-		ft_memdel((void**)file);
-		ft_memdel((void**)nb_file);
+		ft_memdel((void**)&(al->file));
+		ft_memdel((void**)&(al->nb_file));
 		display_error(data, 0);
 	}
 }
@@ -62,7 +82,7 @@ void		put_soluceastar(t_data *data, t_algo *al)
 	t_soluce st;
 
 	lemin_info(data, "start put_soluce A *");
-	alloc_path(data, &st, &(al->file), &(al->nb_file));
+	alloc_path(data, &st, al);
 	while (st.pos < al->l && al->nb_file[st.pos] != -1)
 		st.pos++;
 	st.path[st.l++] = ROOM_END;

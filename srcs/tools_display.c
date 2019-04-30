@@ -6,7 +6,7 @@
 /*   By: loiberti <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/14 14:36:08 by loiberti     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/18 19:52:36 by rgermain    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 15:19:10 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,19 +21,6 @@ void	lemin_info(t_data *data, char *str)
 		ft_dprintf(2, "%s%s%s\n\n", T_BLUE, str, T_WHITE);
 		usleep(data->info.time * 10000);
 	}
-}
-
-void	display_error(t_data *data, char index)
-{
-	lemin_info(data, "Error");
-	lemin_free(data);
-	if (data->line)
-		ft_dprintf(2, "\n");
-	if (index == 0)
-		ft_printf("%1.@", "error", "lem_in");
-	else
-		ft_dprintf(2, "ERROR\n");
-	exit(0);
 }
 
 void	putint(t_data *data, int *tab, int mod)
@@ -78,8 +65,29 @@ void	putdbint(t_data *data, int **tab, int limit, int mod)
 
 void	put_line(t_data *data, char **line)
 {
+	t_line	**tmp;
+
 	data->line++;
-	if (test_bit(&(data->info.flags), 2))
-		ft_printf("%s\n", (*line));
-	ft_memdel((void**)line);
+	if (!test_bit(&(data->info.flags), 2))
+	{
+		ft_memdel((void**)line);
+		return ;
+	}
+	tmp = &(data->file);
+	while (*tmp != NULL)
+		tmp = &((*tmp)->next);
+	if (!(*tmp = (t_line*)ft_memalloc(sizeof(t_line))))
+		display_error(data, 0);
+	(*tmp)->next = NULL;
+	(*tmp)->line = (*line);
+}
+
+void	print_line(t_line *file)
+{
+	if (file)
+	{
+		write(1, file->line, ft_strlen(file->line));
+		ft_putchar('\n');
+		print_line(file->next);
+	}
 }

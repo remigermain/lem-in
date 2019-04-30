@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/01 15:43:07 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/18 19:46:30 by loiberti    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/23 14:26:37 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,6 +65,8 @@ static int		neighbor_pop(t_data *data, int room, int *i, t_algostar *st)
 		st->cost[voisin] = st->cost[room] + 1;
 		st->hs[voisin] += st->cost[voisin] + st->cost[ROOM_END];
 		st->olst[st->o_endlen++] = voisin;
+		if (st->o_endlen >= st->alloc)
+			realloc_olst(data, st);
 		return (1);
 	}
 	return (-1);

@@ -6,14 +6,14 @@
 /*   By: loiberti <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/04/17 12:34:54 by loiberti     #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/18 19:30:57 by loiberti    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/24 19:04:12 by loiberti    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	add_div_res(t_data *data, int *good_p, int count)
+static void	add_div_res(t_data *data, int *good_p, int count)
 {
 	int	i;
 	int	div;
@@ -30,7 +30,7 @@ void	add_div_res(t_data *data, int *good_p, int count)
 	while (++i < data->soluce.nb_soluce)
 	{
 		good_p[i] += div;
-		if (i && i <= res)
+		if (i < res)
 			good_p[i] += 1;
 		if (!good_p[i])
 		{
@@ -42,15 +42,17 @@ void	add_div_res(t_data *data, int *good_p, int count)
 	lemin_info(data, "Display path end");
 }
 
-void	nb_ants_by_path(t_data *data, int **good_p, int *cost_p)
+void		nb_ants_by_path(t_data *data, int **good_p, int *cost_p)
 {
-	int	i;
-	int	count;
+	int		i;
+	long	count;
 
 	lemin_info(data, "Display path");
-	if (!(*good_p = (int*)malloc(sizeof(int) * (data->soluce.nb_soluce + 1))))
-		return ;
-	count = data->ants_nb + 1;
+	if (!(*good_p = (int*)ft_memalloc(sizeof(int) *
+					(data->soluce.nb_soluce + 1))))
+		display_error(data, 0);
+	count = data->ants_nb;
+	count++;
 	while (count > data->ants_nb && (i = -1))
 	{
 		count = 0;

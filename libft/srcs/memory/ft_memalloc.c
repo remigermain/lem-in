@@ -6,7 +6,7 @@
 /*   By: rgermain <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/10/04 14:30:47 by rgermain     #+#   ##    ##    #+#       */
-/*   Updated: 2018/11/13 10:33:56 by alepercq    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/04/19 18:45:46 by rgermain    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -17,9 +17,7 @@ void	*ft_memalloc(size_t size)
 {
 	void	*mnew;
 
-	if (size > 2147483647)
-		return (NULL);
-	if (!(mnew = (void*)malloc(sizeof(void) * size + 1)))
+	if (!(mnew = malloc(size)))
 		return (NULL);
 	ft_memset(mnew, 0, size);
 	return (mnew);
