@@ -141,3 +141,8 @@ zaz@blackjack /tmp/lem-in $
                             you can go from 1 to 9, but not from 9 to 1.
 
         -p              for print only diff whith map.
+```
+
+## credit :fr:
+
+The lem_in made by rgermain and loiberti
