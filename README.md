@@ -72,7 +72,7 @@ On a donc 2 parties :
 
 •S’il n’y a pas assez de donnée pour faire un traitement normal vous devrez sim-plement afficher ERROR
 
-# e but de tout ca ?
+# Le but de tout ca ?
 
 •Le but du projet est de trouver le moyen le plus rapide de faire traverser la four-milière parnfourmis.
 
@@ -126,3 +126,18 @@ zaz@blackjack /tmp/lem-in $
 `Ce sont des maps avec parfois plus de 10000 lignes, votre façon delire les données et de les écrire doit également être assez rapide.`
 
 •Quant à savoir quel type d’opération les étudiants en magie pouvaient bien faireavec un tel ordinateur, tout ce qu’on en sait aujourd’hui, c’est que l’électricité c’estvachement plus fiable.
+
+# usage
+
+```
+./lem_in [ Flags ] 
+    [ Flags ]
+        -i  <number>    for print information , the number , to for speed.
+        -f  <file>      for read map from file.
+        -o              the map is a graph oriented whith this commande :
+                        ex :
+                            ##oriented
+                            1-9
+                            you can go from 1 to 9, but not from 9 to 1.
+
+        -p              for print only diff whith map.
