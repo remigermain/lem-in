@@ -3,7 +3,7 @@
 Comment ça marche ?
 
 •Votre programme va recevoir sur l’entrée standard la description de la fourmilière sous la forme suivante 
-``
+```
 nombre_de_fourmis
 les_salles
 les_tubes
@@ -43,5 +43,12 @@ les_tubes
 # Ce qui représente :
 
 ```
-_______________/\______[5]----[3]----[1]  |/|    /|[6]-----[0]----[4]  /|\   _________/ |  /|\ /[2]/_______/[7]_________/
+           _______________
+          /               \
+  ______[5]----[3]----[1]  |
+ /              |     /    |
+[6]-----[0]----[4]   /     |
+ \    _________/ |  /      |
+  \ /           [2]/______/
+  [7]___________/
 ```
